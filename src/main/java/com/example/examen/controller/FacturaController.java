@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.examen.model.Factura;
 import com.example.examen.service.IntFacturaService;
-import com.example.examen.service.IntRelojService;
+
 
 @Controller
 @RequestMapping("/facturas")
@@ -20,8 +20,6 @@ public class FacturaController {
 	@Autowired
 	private IntFacturaService facturaService;
 	
-	@Autowired
-	private IntRelojService relojService;
 	
 	@GetMapping("/lista")
 	public String listarFac (Model model) {

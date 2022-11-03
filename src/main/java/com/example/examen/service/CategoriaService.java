@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.example.examen.model.Categoria;
-import com.example.examen.model.Reloj;
+
 
 @Service
 public class CategoriaService implements IntCategoriaService{
