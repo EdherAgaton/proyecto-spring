@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+
+    <title>EmpleosApp | Listado de Ofertas de Trabajo</title>
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link th:href="@{/bootstrap/css/jumbotron.css}" rel="stylesheet">
+    <link th:href="@{/bootstrap/css/sticky-footer-navbar.css}" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" rel="stylesheet">
+  </head>
+  </head>
+
+  <body>
+
+     <header th:insert="fragmentos/menu.html::menu-princial">
+     
+    </header>
+
+    <main role="main">     
+      <hr>
+      <div class="container"> 
+
+        <div class="card">
+          <h4 class="card-header" ><strong><strong>Datos de la categoria</strong></h4>              
+          <div class="card-body">
+            <form method="post" th:action="@{/categorias/guardar}"  th:object="${categoria}" > 
+            <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger" role="alert">
+            Verifique sus datos
+            <ul>
+            <li th:each=" error:${#fields.errors('*')}" th:text="${error}"></li>
+            </ul>
+            </div>             
+              <div class="row">
+                <div class="col-md-3"> 
+                  <div class="form-group">
+                    <label for="nombre">Categoria</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" th:field="*{nombre}" placeholder="Nombre de la Categoria" required="required">
+                  </div>
+                </div>
+                <div class="col-md-9"> 
+                  <div class="form-group">
+                    <label for="descripcion">Descripcion</label>
+                    <input type="text" class="form-control" id="descripcion" name="descripcion" th:field="*{descripcion}"  placeholder="Descripcion" required="required">
+                  </div> 
+                </div>    
+              </div>    
+              
+              <button type="submit" class="btn btn-primary" ><strong>Guardar</button>  
+            </form>
+          </div>
+        </div>
+      </div> <!-- /container -->
+
+    </main>
+
+      <footer th:insert="fragmentos/pie.html::pie-pagina"class="footer">
+      
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> 
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script src="bootstrap/js/bootstrap.min.js"></script>    
+    <script src="tinymce/tinymce.min.js"></script>
+    <script>
+      
+      $(function () {
+          $("#fecha").datepicker({dateFormat: 'dd-mm-yy'});
+        }
+      );
+      
+      /*
+      tinymce.init({
+          selector: '#detalles',
+          plugins: "textcolor, table lists code",
+          toolbar: " undo redo | bold italic | alignleft aligncenter alignright alignjustify \n\
+                    | bullist numlist outdent indent | forecolor backcolor table code"
+      });
+      
+      */
+      
+    </script>
+  </body>
+</html>

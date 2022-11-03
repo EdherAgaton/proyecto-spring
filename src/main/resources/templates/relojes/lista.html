@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+
+    <title>EmpleosApp | Listado de Ofertas de Trabajo</title>
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link th:href="@{/bootstrap/css/jumbotron.css}" rel="stylesheet">
+    <link th:href="@{/bootstrap/css/sticky-footer-navbar.css}" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" rel="stylesheet">
+  </head>
+
+  <body>
+          <header th:insert="fragmentos/menu.html::menu-princial">
+     
+    </header> 
+
+    <main role="main">     
+      <hr>
+      <div class="container"> 
+
+        <div class="card">
+          <h4 class="card-header" ><strong>Listado de Relojes</strong></h4>              
+          <div class="card-body">
+            <a class="btn btn-primary" th:href="@{/reloj/form}" title="Crear nueva Oferta de Trabajo" role="button" ><strong><i class="fas fa-file" aria-hidden="true"></i> Nueva</a>            
+            <hr>
+          
+              <div th:if="${msg!=null}" 
+                 class='alert alert-warning' 
+                 th:text="${msg}" role="role">
+                 
+            
+            
+          </div>
+            
+          </div>
+      
+            <table class="table table-hover" style="text-align: center;">
+              <thead class="thead-light">
+                <tr >
+                <th scope="col">Id</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Categoria</th>                  
+                  <th scope="col">Precio</th>
+                  <th scope="col">Fecha</th>
+                  <th scope="col" >Imagen</th>
+                
+                  <th scope="col">Operaciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="reloj:${relojes}">
+                  <td th:text="${reloj.id}"></td>
+                  <td th:text="${reloj.nombre}"></td>
+                  <td th:text="${reloj.categoria.id}"></td>
+                  <td th:text="${reloj.precio}"></td>                  
+                  <td th:text="${reloj.fecha}"></td>
+                  <td >  <img class="rounded mx-auto d-block" th:src="@{/logos/{img}(img=${reloj.imagen})}" alt="Generic placeholder image" width="220" height="220">  </td>
+                  <td>
+                 	
+                    <a  th:href="@{/reloj/detalle(id=${reloj.id})}"class="btn btn-success btn-sm" role="button" title="Editar el registro." >D</a>
+                    <a th:href="@{/reloj/eliminar(id=${reloj.id})}"  onclick="return confirm('¿Estas seguro?')" class="btn btn-success btn-sm" role="button" title="Eliminar el registro."><i class="fas fa-trash" aria-hidden="true"></i></a>
+                
+                  </td>
+                </tr>
+                
+                               
+              </tbody>
+            </table>
+            
+          </div>
+        </div>
+      </div> <!-- /container -->
+
+    </main>
+
+    <footer th:insert="fragmentos/pie.html::pie-pagina"class="footer">
+      
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="@{/bootstrap/js/bootstrap.min.js}"></script>     
+  </body>
+</html>

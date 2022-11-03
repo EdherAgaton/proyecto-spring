@@ -1,0 +1,142 @@
+package com.example.examen.controller;
+
+import java.beans.PropertyEditorSupport;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.example.examen.model.Reloj;
+import com.example.examen.service.IntCategoriaService;
+import com.example.examen.service.IntRelojService;
+import com.example.examen.service.util.Utileria;
+
+@Controller
+@RequestMapping("/reloj")
+public class RelojController {
+	
+	@Autowired
+	private IntRelojService relojService;
+	
+	@Autowired
+	private IntCategoriaService categoriaService;
+	
+	
+	@GetMapping("/lista")
+	public String lista(Model model) {
+		
+		List<Reloj> relojes = relojService.listaR();
+		model.addAttribute("relojes", relojes);
+		
+		return "relojes/lista";
+		
+	}
+	
+	
+	@GetMapping("/form")
+	public String formulario(Model model, Reloj reloj) {
+		
+		model.addAttribute("categorias", categoriaService.listaC());
+		
+		return "relojes/form";
+	}
+	
+	@PostMapping("/guardar")
+	public String guardarReloj(Reloj reloj, BindingResult br, RedirectAttributes atributo, @RequestParam("archivoImagen") MultipartFile multiPart, Model model) {
+		
+		if(br.hasErrors()) {
+			for(ObjectError error: br.getAllErrors()) {
+				System.out.print("Error :" + error.getDefaultMessage());
+				
+			}
+			model.addAttribute("categorias", categoriaService.listaC()); 
+			return "relojes/form";
+		}
+		
+		System.out.print(reloj);
+		reloj.setId(relojService.listaR().size()+1);
+		System.out.print(reloj);
+		relojService.agregarR(reloj);
+		if (!multiPart.isEmpty()) {
+			//String ruta = "/empleos/img-vacantes/"; // Linux/MAC
+			String ruta = "c:/relojes/img-relojes/"; // Windows
+			String nombreImagen = Utileria.guardarArchivo(multiPart, ruta);
+			if (nombreImagen != null){ // La imagen si se subio
+			// Procesamos la variable nombreImagen
+			reloj.setImagen(nombreImagen);
+			}
+			}
+		atributo.addFlashAttribute("msg","Reloj Registrado");
+		
+		
+		return "redirect:/reloj/lista";
+		
+		
+	}
+	
+	@GetMapping("/eliminar")
+	public String eliminarcion(@RequestParam("id")int id, RedirectAttributes atributo) {
+		
+		relojService.eliminarR(id);
+		atributo.addFlashAttribute("msg", "Reloj eliminado");
+		
+		return "redirect:/reloj/lista";
+		
+	}
+	
+	
+	@GetMapping("/detalle")
+	public String detalles(@RequestParam("id")int id, Model model) {
+		
+		
+		
+		
+		model.addAttribute("reloj",relojService.buscarR(id) );
+		model.addAttribute("categoria", categoriaService.buscarC(id));
+		
+		return "relojes/detalle";
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	@InitBinder
+	protected void initBinder(WebDataBinder binder) {
+		binder.registerCustomEditor(LocalDate.class, new PropertyEditorSupport(){
+			@Override
+			public void setAsText(String text) throws IllegalArgumentException{
+				setValue(LocalDate.parse(text,DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+				
+			}
+			@Override
+			
+			public String getAsText()throws IllegalArgumentException{
+				return DateTimeFormatter.ofPattern("dd-MM-yyyy").format((LocalDate)getValue());
+			}
+			
+			
+		});
+	}
+	
+	
+	
+
+}
