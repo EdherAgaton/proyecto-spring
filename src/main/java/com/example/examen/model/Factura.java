@@ -2,12 +2,34 @@ package com.example.examen.model;
 
 import java.time.LocalDate;
 
-public class Factura {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
+@Entity
+@Table(name="facturas")
+public class Factura {
+	
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="id")
 	private int id;
-	private String titular;
-	private double cantidad;
+	
+	@OneToOne
+	@JoinColumn(name="idUsuario")
+	private Usuario usuario;
+	
+	@Column(name="fecha")
 	private LocalDate fecha;
+	
+	@OneToOne
+	@JoinColumn(name="idReloj")
 	private Reloj reloj;
 	
 	public LocalDate getFecha() {
@@ -28,22 +50,17 @@ public class Factura {
 		this.id = id;
 	}
 
-	public String getTitular() {
-		return titular;
+	
+
+	public Usuario getUsuario() {
+		return usuario;
 	}
 
-	public void setTitular(String titular) {
-		this.titular = titular;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
-	public double getCantidad() {
-		return cantidad;
-	}
-
-	public void setCantidad(double cantidad) {
-		this.cantidad = cantidad;
-	}
-
+	
 	public Reloj getReloj() {
 		return reloj;
 	}
@@ -54,7 +71,10 @@ public class Factura {
 
 	@Override
 	public String toString() {
-		return "Factura [id=" + id + ", titular=" + titular + ", cantidad=" + cantidad + ", reloj=" + reloj + "]";
+		return "Factura [id=" + id + ", usuario=" + usuario + ", fecha=" + fecha + ", reloj="
+				+ reloj + "]";
 	}
+
+	
 
 }

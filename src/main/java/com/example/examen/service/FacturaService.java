@@ -22,7 +22,7 @@ public class FacturaService implements IntFacturaService {
 		
 		Factura f1 = new Factura();
 		f1.setId(1);
-		f1.setCantidad(5000);
+		
 		f1.setFecha(LocalDate.parse("02-10-2022", formato));
 		
 		Reloj r1 = new Reloj();
@@ -33,7 +33,7 @@ public class FacturaService implements IntFacturaService {
 
 		Factura f2 = new Factura();
 		f2.setId(2);
-		f2.setCantidad(5000);
+	
 		f2.setFecha(LocalDate.parse("19-10-2001", formato));
 		
 		Reloj r2 = new Reloj();

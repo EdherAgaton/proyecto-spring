@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.examen.model.Categoria;
-
+import com.example.examen.model.Reloj;
 import com.example.examen.service.IntCategoriaService;
 
 
@@ -70,13 +70,21 @@ public class CategoriaController {
 		}
 		
 	
-		categoria.setId(categoriaService.listaC().size()+1);
+		//categoria.setId(categoriaService.listaC().size()+1);
 		
 		categoriaService.agregarC(categoria);
 		
 		atributo.addFlashAttribute("msg","Categoria Registrada");
 		
 		return "redirect:/categorias/lista";
+	}
+	
+	
+	@GetMapping("/editar")
+	public String editarCategoria(@RequestParam("id") int idCategoria, Model model) {
+		Categoria categoria = categoriaService.buscarC(idCategoria);
+		model.addAttribute("categoria", categoria);
+		return "categorias/form";
 	}
 	
 	

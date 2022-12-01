@@ -2,15 +2,58 @@ package com.example.examen.model;
 
 import java.time.LocalDate;
 
-public class Reloj {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
+@Entity
+@Table(name="relojes")
+public class Reloj {
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="id")
 	private int id;
+	
+	@Column(name="nombre")
 	private String nombre;
+	
+	@Column(name="precio")
 	private double precio;
+	
+	@Column(name="descripcion")
 	private String descripcion;
-	private String marca;
+	
+	@Column(name="fecha")
 	private LocalDate fecha;
+	
+	@Column(name="imagen")
 	private String imagen;
+	
+	@OneToOne
+	@JoinColumn(name="idCategoria")
+	private Categoria categoria;
+	
+	@OneToOne
+	@JoinColumn(name="idSucursal")
+	private Tienda tienda;
+	
+	public Tienda getTienda() {
+		return tienda;
+	}
+
+	public void setTienda(Tienda tienda) {
+		this.tienda = tienda;
+	}
+
+	@OneToOne
+	@JoinColumn(name="idMarca")
+	private Marca marca;
 
 	public String getImagen() {
 		return imagen;
@@ -27,8 +70,6 @@ public class Reloj {
 	public void setFecha(LocalDate fecha) {
 		this.fecha = fecha;
 	}
-
-	private Categoria categoria;
 
 	public int getId() {
 		return id;
@@ -62,11 +103,11 @@ public class Reloj {
 		this.descripcion = descripcion;
 	}
 
-	public String getMarca() {
+	public Marca getMarca() {
 		return marca;
 	}
 
-	public void setMarca(String marca) {
+	public void setMarca(Marca marca) {
 		this.marca = marca;
 	}
 
@@ -81,7 +122,7 @@ public class Reloj {
 	@Override
 	public String toString() {
 		return "Reloj [id=" + id + ", nombre=" + nombre + ", precio=" + precio + ", descripcion=" + descripcion
-				+ ", marca=" + marca + ", categoria=" + categoria + "]";
+				+ ", fecha=" + fecha + ", imagen=" + imagen + ", categoria=" + categoria + ", marca=" + marca + "]";
 	}
 
 }

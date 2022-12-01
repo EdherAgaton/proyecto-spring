@@ -33,14 +33,12 @@
             <div class="card">
               <h4 class="card-header"> <strong th:text="${reloj.nombre} "></strong></h4>              
               <div class="card-body">
-                <h5 class="card-title"><strong>Categoría: </strong> <span th:text="${reloj.categoria.nombre}"></span></h5>
+                <h5 class="card-title"><strong>Categoría: </strong> <span th:text="${categoria.nombre}"></span></h5>
                 <h6 class="card-title"><strong>Publicado: </strong> <span th:text="${reloj.fecha}"> </span></h6>                
                 <h6 class="card-title"><strong>Precio: </strong><span th:text="${'$' + reloj.precio}"></span></h6>
-                   <h6 class="card-title"><strong>Marca </strong><span th:text="${reloj.marca.nombre}"></span></h6>
-                   <h6 class="card-title"><strong>Pais de Origen : </strong><span th:text="${reloj.marca.pais}"></span></h6>
-                   <h6 class="card-title"><strong>Disponible en  : </strong><span th:text="${reloj.tienda.nombre}"></span></h6>
+                   <h6 class="card-title"><strong>Marca </strong><span th:text="${reloj.marca}"></span></h6>
                       
-                <p class="card-text" th:text="${reloj.descripcion}"></p>
+                <p class="card-text" th:text="${categoria.descripcion}"></p>
                 
                 <div class="card bg-light mb-3" >
                   <!--<div class="card-body">

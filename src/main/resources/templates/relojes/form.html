@@ -7,7 +7,7 @@
     <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
 
-    <title>EmpleosApp | Listado de Ofertas de Trabajo</title>
+    <title>Proyecto</title>
     <!-- Bootstrap core CSS -->
     <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
     <!-- Custom styles for this template -->
@@ -46,8 +46,11 @@
                 </div>
                 <div class="col-md-9"> 
                   <div class="form-group">
-                    <label for="descripcion">Marca</label>
-                    <input type="text" class="form-control" id="marca" name="marca" th:field="*{marca}"  placeholder="Marca" required="required">
+                    <label for="categoria">Marca</label>
+                <select class="form-control" name="marca" th:field="*{marca.id}" id="marca" >
+                    	<option th:each="marca:${marcas}" th:text="${marca.nombre}" th:value="${marca.id}"></option>
+                  
+                    </select>
                   </div> 
                 </div>    
               </div>    
@@ -61,6 +64,16 @@
                     </select>
                   </div>
                 </div>
+                
+                <div class="col-md-3"> 
+                  <div class="form-group">
+                    <label for="categoria">Punto de venta</label>
+                <select class="form-control" name="tienda" th:field="*{tienda.id}" id="tienda" >
+                    	<option th:each="tienda:${tiendas}" th:text="${tienda.nombre}" th:value="${tienda.id}"></option>
+                  
+                    </select>
+                  </div>
+                </div>
 
               
                 <div class="col-md-3"> 
@@ -70,9 +83,8 @@
                     
                   </div>  
                 </div>
-               
-              </div>    
-              <div class="row">
+                
+                
                 <div class="col-md-3"> 
                   <div class="form-group">
                     <label for="salario">Precio</label>
@@ -80,17 +92,24 @@
                   </div>
                   
                 </div>
+               
+              </div>    
+              <div class="row">
+                
                 <div class="col-md-3"> 
-                  <div class="form-group" >
-                    <label for="archivoImagen" >Imagen</label>
-                     <input type="file" class="form-control-file" name="archivoImagen" id="archivoImagen">
+                 <div class="form-group">
+                    <label for="descripcion">Descripción</label>
+                      <textarea class="form-control" name="descripcion" id="descripcion" rows="6" required="required"></textarea>
                   </div>
                 </div>
               </div> 
               <hr>
               <div class="row">
                 <div class="col-md-9"> 
-                  
+                   <div class="form-group" >
+                    <label for="archivoImagen" >Imagen</label>
+                     <input type="file" class="form-control-file" name="archivoImagen" id="archivoImagen">
+                  </div>
                 </div> 
                 
               </div> 
@@ -111,8 +130,8 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> 
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-	<script src="bootstrap/js/bootstrap.min.js"></script>    
-    <script src="tinymce/tinymce.min.js"></script>
+	<script th:src="@{bootstrap/js/bootstrap.min.js}"></script>    
+    <script src="@{tinymce/tinymce.min.js}"></script>
     <script>
       
       $(function () {
@@ -120,7 +139,7 @@
         }
       );
       
-      /*
+      
       tinymce.init({
           selector: '#detalles',
           plugins: "textcolor, table lists code",
@@ -128,8 +147,8 @@
                     | bullist numlist outdent indent | forecolor backcolor table code"
       });
       
-      */
       
+     
     </script>
   </body>
 </html>

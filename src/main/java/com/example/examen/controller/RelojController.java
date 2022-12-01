@@ -6,6 +6,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,7 +23,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.examen.model.Reloj;
 import com.example.examen.service.IntCategoriaService;
+import com.example.examen.service.IntMarcaService;
 import com.example.examen.service.IntRelojService;
+import com.example.examen.service.IntTiendaService;
 import com.example.examen.service.util.Utileria;
 
 @Controller
@@ -33,6 +37,13 @@ public class RelojController {
 	
 	@Autowired
 	private IntCategoriaService categoriaService;
+	
+	@Autowired
+	private IntMarcaService marcaService;
+	
+	
+	@Autowired
+	private IntTiendaService tiendaService;
 	
 	
 	@GetMapping("/lista")
@@ -46,10 +57,19 @@ public class RelojController {
 	}
 	
 	
+	@GetMapping(value = "/indexPaginate")
+	public String mostrarIndexPaginado(Model model, Pageable page) {
+	Page<Reloj>lista = relojService.listarR(page);
+	model.addAttribute("relojes", lista);
+	return "relojes/lista";
+	}
+	
 	@GetMapping("/form")
 	public String formulario(Model model, Reloj reloj) {
 		
 		model.addAttribute("categorias", categoriaService.listaC());
+		model.addAttribute("marcas", marcaService.listaM());
+		model.addAttribute("tiendas", tiendaService.listaT());
 		
 		return "relojes/form";
 	}
@@ -67,9 +87,9 @@ public class RelojController {
 		}
 		
 		System.out.print(reloj);
-		reloj.setId(relojService.listaR().size()+1);
+		//reloj.setId(relojService.listaR().size()+1);
 		System.out.print(reloj);
-		relojService.agregarR(reloj);
+	
 		if (!multiPart.isEmpty()) {
 			//String ruta = "/empleos/img-vacantes/"; // Linux/MAC
 			String ruta = "c:/relojes/img-relojes/"; // Windows
@@ -79,10 +99,11 @@ public class RelojController {
 			reloj.setImagen(nombreImagen);
 			}
 			}
+		relojService.agregarR(reloj);
 		atributo.addFlashAttribute("msg","Reloj Registrado");
 		
 		
-		return "redirect:/reloj/lista";
+		return "redirect:/reloj/indexPaginate";
 		
 		
 	}
@@ -93,7 +114,7 @@ public class RelojController {
 		relojService.eliminarR(id);
 		atributo.addFlashAttribute("msg", "Reloj eliminado");
 		
-		return "redirect:/reloj/lista";
+		return "redirect:/reloj/indexPaginate";
 		
 	}
 	
@@ -106,6 +127,7 @@ public class RelojController {
 		
 		model.addAttribute("reloj",relojService.buscarR(id) );
 		model.addAttribute("categoria", categoriaService.buscarC(id));
+		model.addAttribute("tiendas", tiendaService.buscarT(id));
 		
 		return "relojes/detalle";
 		
@@ -135,6 +157,21 @@ public class RelojController {
 			
 		});
 	}
+	
+	
+	
+
+	@GetMapping("/editar")
+	public String editarReloj(@RequestParam("id") int idReloj, Model model) {
+		Reloj reloj = relojService.buscarR(idReloj);
+		model.addAttribute("categorias", categoriaService.listaC());
+		model.addAttribute("marcas", marcaService.listaM());
+		model.addAttribute("reloj", reloj);
+		return "relojes/form";
+	}
+
+	
+	
 	
 	
 	

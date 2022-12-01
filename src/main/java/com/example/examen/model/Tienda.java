@@ -8,19 +8,20 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="categorias")
-public class Categoria {
+@Table(name="tiendas")
+public class Tienda {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")
 	private int id;
 	
+	
 	@Column(name="nombre")
 	private String nombre;
 	
-	@Column(name="descripcion")
-	private String descripcion;
+	@Column(name="direccion")
+	private String direccion;
 
 	public int getId() {
 		return id;
@@ -38,17 +39,20 @@ public class Categoria {
 		this.nombre = nombre;
 	}
 
-	public String getDescripcion() {
-		return descripcion;
+	public String getDireccion() {
+		return direccion;
 	}
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
 	}
 
 	@Override
 	public String toString() {
-		return "Categoria [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + "]";
+		return "Tienda [id=" + id + ", nombre=" + nombre + ", direccion=" + direccion + "]";
 	}
+	
+	
+	
 
 }

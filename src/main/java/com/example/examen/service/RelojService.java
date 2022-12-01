@@ -5,6 +5,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.examen.model.Categoria;
@@ -23,7 +25,7 @@ public class RelojService implements IntRelojService {
 		Reloj r1 = new Reloj();
 		r1.setId(1);
 		r1.setNombre("Huawei Watch");
-		r1.setMarca("Huawei");
+		//r1.setMarca("Huawei");
 		r1.setPrecio(1500);
 		r1.setDescripcion("Reloj inteligente para ejercicio");
 		r1.setFecha(LocalDate.parse("17-03-1998",formato));
@@ -36,7 +38,7 @@ public class RelojService implements IntRelojService {
 		Reloj r2 = new Reloj();
 		r2.setId(2);
 		r2.setNombre("Victorinox 13mm");
-		r2.setMarca("Victorinox");
+		//r2.setMarca("Victorinox");
 		r2.setPrecio(3000);
 		r2.setDescripcion("Reloj de acero inoxidable");
 		r2.setFecha(LocalDate.parse("20-05-2001",formato));
@@ -49,7 +51,7 @@ public class RelojService implements IntRelojService {
 		Reloj r3 = new Reloj();
 		r3.setId(1);
 		r3.setNombre("Huawei Watch");
-		r3.setMarca("Huawei");
+		//r3.setMarca("Huawei");
 		r3.setPrecio(1500);
 		r3.setDescripcion("Reloj inteligente para ejercicio");
 		r3.setFecha(LocalDate.parse("17-03-1998",formato));
@@ -94,6 +96,20 @@ public class RelojService implements IntRelojService {
 				
 			}
 		}
+		return null;
+	}
+
+
+	@Override
+	public Page<Reloj> listarR(Pageable page) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public Page<Reloj> buscarR(java.awt.print.Pageable page) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 

@@ -28,9 +28,9 @@
       <div class="container"> 
 
         <div class="card">
-          <h4 class="card-header" ><strong><strong>Datos de la categoria</strong></h4>              
+          <h4 class="card-header" ><strong><strong>Datos de la marca</strong></h4>              
           <div class="card-body">
-            <form method="post" th:action="@{/categorias/guardar}"  th:object="${categoria}" > 
+            <form method="post" th:action="@{/marca/guardar}"  th:object="${marca}" > 
             <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger" role="alert">
             Verifique sus datos
             <ul>
@@ -40,14 +40,14 @@
               <div class="row">
                 <div class="col-md-3"> 
                   <div class="form-group">
-                    <label for="nombre">Categoria</label>
-                    <input type="text" class="form-control" id="nombre" name="nombre" th:field="*{nombre}" placeholder="Nombre de la Categoria" required="required">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" th:field="*{nombre}" placeholder="Nombre de la marca" required="required">
                   </div>
                 </div>
-                <div class="col-md-9"> 
+                <div class="col-md-3"> 
                   <div class="form-group">
-                    <label for="descripcion">Descripcion</label>
-                    <input type="text" class="form-control" id="descripcion" name="descripcion" th:field="*{descripcion}"  placeholder="Descripcion" required="required">
+                    <label for="pais">Pais</label>
+                    <input type="text" class="form-control" id="pais" name="pais" th:field="*{pais}"  placeholder="Pais de Origen" required="required">
                   </div> 
                 </div>    
               </div>    
