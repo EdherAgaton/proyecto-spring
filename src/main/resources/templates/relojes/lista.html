@@ -61,7 +61,7 @@
                   <td th:text="${reloj.categoria.id}"></td>
                   <td th:text="${reloj.precio}"></td>                  
                   <td th:text="${reloj.fecha}"></td>
-                  <td >  <img class="rounded mx-auto d-block" th:src="@{/logos/{img}(img=${reloj.imagen})}" alt="Generic placeholder image" width="220" height="220">  </td>
+                  <td >  <img class="rounded mx-auto d-block" th:src="@{/imagenes/{img}(img=${reloj.imagen})}" alt="Generic placeholder image" width="220" height="220">  </td>
                   <td>
                  	
                     <a  th:href="@{/reloj/detalle(id=${reloj.id})}"class="btn btn-success btn-sm" role="button" title="Detalles del registro." >D</a>

@@ -1,6 +1,10 @@
 package com.example.examen.controller;
 
 import java.beans.PropertyEditorSupport;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -26,7 +30,6 @@ import com.example.examen.service.IntCategoriaService;
 import com.example.examen.service.IntMarcaService;
 import com.example.examen.service.IntRelojService;
 import com.example.examen.service.IntTiendaService;
-import com.example.examen.service.util.Utileria;
 
 @Controller
 @RequestMapping("/reloj")
@@ -91,6 +94,22 @@ public class RelojController {
 		System.out.print(reloj);
 	
 		if (!multiPart.isEmpty()) {
+			Path directorioImagenes= Paths.get("src//main//resources//static/imagenes");
+            String rutaAbsoluta=directorioImagenes.toFile().getAbsolutePath();
+			
+			try {
+				byte[] bytesImg= multiPart.getBytes();
+				Path rutaCompleta=Paths.get(rutaAbsoluta + "//" + multiPart.getOriginalFilename());
+				Files.write(rutaCompleta, bytesImg);
+				reloj.setImagen(multiPart.getOriginalFilename());
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+			
+			/*
 			//String ruta = "/empleos/img-vacantes/"; // Linux/MAC
 			String ruta = "c:/relojes/img-relojes/"; // Windows
 			String nombreImagen = Utileria.guardarArchivo(multiPart, ruta);
@@ -99,6 +118,8 @@ public class RelojController {
 			reloj.setImagen(nombreImagen);
 			}
 			}
+			
+			*/
 		relojService.agregarR(reloj);
 		atributo.addFlashAttribute("msg","Reloj Registrado");
 		
